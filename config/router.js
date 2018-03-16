@@ -14,7 +14,10 @@ module.exports = function(){
   router.post('/u/signup', App.hasBody, User.signup)
   router.post('/u/signin', App.hasBody, User.signIn)
   router.post('/u/update', App.hasBody, App.hasToken, User.update)
-  router.post('/b/publish', App.hasBody, Blog.publish)
+  router.post('/b/publish', App.hasBody,App.hasSession, Blog.publish)
+  router.get('/b/main', Blog.main)
+  router.get('/b/auth', App.hasSession, Blog.auth)
+  router.get('/user/info', App.hasSession, User.info)
 
   // DB Interface test
   router.get('/test/user/users',User.users)

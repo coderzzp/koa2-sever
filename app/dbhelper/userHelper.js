@@ -2,7 +2,7 @@
 
 var mongoose =  require('mongoose')
 var User = mongoose.model('User')
-
+var Blog = mongoose.model('Blog')
 /**
  * 通过电话号码查询
  * @param  {[type]} options.phoneNumber [description]
@@ -38,7 +38,18 @@ exports.findAllUsers = async () => {
 	})
 	return res
 }
-
+exports.findUserBlog = async (userName) => {
+	var query = Blog.find(userName);
+	var res = []
+	await query.exec(function(err, users) {
+		if(err) {
+			res = []
+		}else {
+			res = users;
+		}
+	})
+	return res
+}
 /**
  * 增加用户
  * @param  {[User]} user [mongoose.model('User')]

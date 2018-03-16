@@ -22,7 +22,17 @@ exports.hasBody = async (ctx, next) => {
 
   await next()
 }
+exports.hasSession = async (ctx,next) => {
+  var session=ctx.session.user
 
+  if (!session) {
+    ctx.body = {
+      success: false,
+      err: '用户未登陆，请先登录'
+    }
+  }
+  await next()
+}
 // 检验token
 exports.hasToken = async (ctx, next) => {
   var accessToken = ctx.query.accessToken

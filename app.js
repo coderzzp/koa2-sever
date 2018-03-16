@@ -46,7 +46,7 @@ walk(models_path)
 require('babel-register')
 const Koa = require('koa')
 const logger = require('koa-logger')
-const convert = require('koa-convert')
+// const convert = require('koa-convert')
 const session = require('koa-session')
 const cors = require('koa2-cors');
 // const bodyParser = require('koa-bodyparser')
@@ -83,7 +83,7 @@ const CONFIG = {
   rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
   renew: false, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
 };
-app.use(convert(session(CONFIG,app)))
+app.use((session(CONFIG,app)))
 app.use(bodyParser({multipart: true}))
 
 

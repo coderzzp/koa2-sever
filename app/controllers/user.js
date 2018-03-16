@@ -35,9 +35,6 @@ exports.signup = async (ctx, next) => {
     
     user = await user.save()
     
-    delete user.password
-    console.log(`session:${user} `)
-    ctx.session.user = user 
     ctx.body = {
       success: true
     }
@@ -54,12 +51,12 @@ exports.signup = async (ctx, next) => {
 }
 
 exports.signIn = async (ctx, next) => {
-  console.log(ctx.session)
+  console.log(ctx.session.user)
   var userName = ctx.request.body.userName.trim()
   console.log(`登陆输入账户${userName}`)
   var password = ctx.request.body.password.trim()
   console.log(`登陆输入密码${password}`)
-  console.log(`ctx.session.user.userName:${ctx.session.user.userName}`)
+  // console.log(`ctx.session.user.userName:${ctx.session.user.userName}`)
   
 	var user = await User.findOne({
 	  userName: userName
@@ -80,6 +77,8 @@ exports.signIn = async (ctx, next) => {
       reason: '密码错误'
     }
 	}else{
+    delete user.password
+    ctx.session.user = user 
     ctx.body = {
       success: true
     }
@@ -151,6 +150,18 @@ exports.users = async (ctx, next) => {
   ctx.body = {
     success: true,
     data
+  }
+}
+exports.info = async (ctx, next) => {
+  const userName = ctx.session.user.userName
+  var info = await userHelper.findUserBlog({userName})
+  // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
+  // console.log('obj=====================================>'+obj)
+  
+  ctx.body = {
+    success: true,
+    userName,
+    info
   }
 }
 exports.addUser = async (ctx, next) => {
