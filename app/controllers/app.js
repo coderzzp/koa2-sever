@@ -24,12 +24,13 @@ exports.hasBody = async (ctx, next) => {
 }
 exports.hasSession = async (ctx,next) => {
   var session=ctx.session.user
-
+  console.log(`session:${session}`)
   if (!session) {
     ctx.body = {
       success: false,
       err: '用户未登陆，请先登录'
     }
+    return next
   }
   await next()
 }
