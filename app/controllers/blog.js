@@ -60,7 +60,7 @@ exports.main = async (ctx, next) => {
   var data = await blogHelper.findAllBlogs()
   // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
   // console.log('obj=====================================>'+obj)
-  
+  data.reverse()
   ctx.body = {
     success: true,
     data
