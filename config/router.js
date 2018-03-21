@@ -18,6 +18,7 @@ module.exports = function(){
   router.get('/b/main', Blog.main)
   router.get('/b/auth', App.hasSession, Blog.auth)
   router.get('/user/info', App.hasSession, User.info)
+  router.get('/test', Blog.test)
 
   // DB Interface test
   router.get('/test/user/users',User.users)

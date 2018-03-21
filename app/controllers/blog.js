@@ -50,6 +50,12 @@ exports.auth = async (ctx, next) => {
     success:true
   }
 }
+exports.test = async (ctx, next) => {
+  ctx.body = {
+    success:true,
+    test:'测试成功!'
+  }
+}
 exports.main = async (ctx, next) => {
   var data = await blogHelper.findAllBlogs()
   // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
