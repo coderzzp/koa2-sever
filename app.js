@@ -62,7 +62,7 @@ app.use(cors({
           return "*"; // 允许来自所有域名请求
       }
       //允许发起跨域请求的端口
-      return 'http://localhost:3001';
+      return authPort;
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
