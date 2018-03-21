@@ -4,6 +4,7 @@
   "description": "利用node+koa+mongoose搭建的后台服务，提供restful接口api",
   "main": "app.js",
   "scripts": {
+    "start":"export NODE_ENV=production && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
