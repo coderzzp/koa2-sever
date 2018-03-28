@@ -20,3 +20,15 @@ exports.findAllBlogs = async () => {
 	// console.log('res====>' + res)
 	return res;
 }
+exports.deleteBlog = async ({_id}) => {
+  var flag = false
+	await Blog.remove({_id}, function(err) {
+		if(err) {
+			flag = false
+		}else{
+			flag = true
+		}
+		
+	})
+	return flag;
+}

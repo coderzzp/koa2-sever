@@ -5,6 +5,7 @@ var mongoose =  require('mongoose')
 var Blog = mongoose.model('Blog')
 var uuid = require('uuid')
 import blogHelper from '../dbhelper/blogHelper'
+import { save } from 'babel-register/lib/cache';
 
 exports.publish = async (ctx, next) => {
   console.log(ctx.request.body)
@@ -45,9 +46,36 @@ exports.publish = async (ctx, next) => {
 
 }
 exports.auth = async (ctx, next) => {
-  console.log("1111111111111")
+  const blogId=ctx.request.body._id
+
   ctx.body = {
     success:true
+  }
+}
+exports.del = async (ctx, next) => {
+  const blogId = ctx.request.body._id
+  console.log(blogId)
+  try {
+    var Done  = await blogHelper.deleteBlog({_id:blogId})
+    if(Done){
+      ctx.body = {
+        success: true,
+      }
+    }else{
+      ctx.body = {
+        success: false,
+      }
+    }
+    
+  }
+  catch (e) {
+    console.log(`保存时的错误：${e}`)
+    ctx.body = {
+      success: false,
+      reason: '保存时的错误！'
+    }
+
+    return next
   }
 }
 exports.test = async (ctx, next) => {
@@ -81,5 +109,4 @@ exports.main = async (ctx, next) => {
 
   //   return next
   // }
-
 }

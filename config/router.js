@@ -17,6 +17,7 @@ module.exports = function(){
   router.post('/b/publish', App.hasBody,App.hasSession, Blog.publish)
   router.get('/b/main', Blog.main)
   router.get('/b/auth', App.hasSession, Blog.auth)
+  router.post('/b/delblog',  App.hasBody,App.hasSession,Blog.del)
   router.get('/user/info', App.hasSession, User.info)
   router.get('/test', Blog.test)
 
