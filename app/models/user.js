@@ -1,5 +1,3 @@
-'use strict'
-
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
@@ -15,7 +13,7 @@ var UserSchema = new Schema({
     type: String
   },
   password: String,
-
+  headImgUrl:{ type: String, default: 'https://res.cloudinary.com/coderzzp2/image/upload/v1523454694/head_xep4yp.jpg' },
 })
 
 // Defines a pre hook for the document.

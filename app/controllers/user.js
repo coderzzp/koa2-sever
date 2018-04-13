@@ -80,7 +80,8 @@ exports.signIn = async (ctx, next) => {
     delete user.password
     ctx.session.user = user 
     ctx.body = {
-      success: true
+      success: true,
+      userName:user.userName
     }
   }
 
@@ -154,14 +155,15 @@ exports.users = async (ctx, next) => {
 }
 exports.info = async (ctx, next) => {
   const userName = ctx.session.user.userName
+  var user = await userHelper.findUserByUserName(userName)
   var info = await userHelper.findUserBlog({userName})
   // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
   // console.log('obj=====================================>'+obj)
   
   ctx.body = {
     success: true,
-    userName,
-    info
+    user,
+    info,
   }
 }
 exports.addUser = async (ctx, next) => {
@@ -187,5 +189,18 @@ exports.deleteUser = async (ctx, next) => {
   ctx.body = {
     success: true,
     data
+  }
+}
+exports.changeHeadImg = async (ctx, next) => {
+  console.log(ctx.session.user)
+  const _id = ctx.session.user._id
+  const userName = ctx.session.user.userName
+  const haedImgUrl=ctx.request.body.headImgUrl.trim()
+  var changedUser = await userHelper.changeHeadImg(_id,userName,haedImgUrl)
+  // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
+  // console.log('obj=====================================>'+obj)
+  ctx.body = {
+    success:true,
+    changedUser
   }
 }

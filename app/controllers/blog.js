@@ -19,6 +19,8 @@ exports.publish = async (ctx, next) => {
     userName,
     word,
     uploadedFileCloudinaryUrl,
+    like:0,
+    likeUserName:[]
   })
   
   blog = await blog.save()
@@ -82,6 +84,22 @@ exports.test = async (ctx, next) => {
   ctx.body = {
     success:true,
     test:'测试成功!'
+  }
+}
+exports.like = async (ctx, next) => {
+  const {userName}=ctx.session.user
+  const blogId=ctx.params.blogId
+  var data = await blogHelper.like(userName,blogId)
+  ctx.body = {
+    data
+  }
+}
+exports.disLike = async (ctx, next) => {
+  const {userName}=ctx.session.user
+  const blogId=ctx.params.blogId
+  var data = await blogHelper.disLike(userName,blogId)
+  ctx.body = {
+    data
   }
 }
 exports.main = async (ctx, next) => {

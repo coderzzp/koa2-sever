@@ -15,7 +15,12 @@ var BlogSchema = new Schema({
     type: String
   },
   uploadedFileCloudinaryUrl: String,
-  word: String
+  word: String,
+  like: { type: Number, default: 0 },
+  likeUserName:{
+    type: Array
+  },
+  headImgUrl:{ type: String, default: 'https://res.cloudinary.com/coderzzp2/image/upload/v1523454694/head_xep4yp.jpg' },
 })
 var Blog = mongoose.model('Blog', BlogSchema)
 

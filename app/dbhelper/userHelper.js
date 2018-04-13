@@ -38,6 +38,9 @@ exports.findAllUsers = async () => {
 	})
 	return res
 }
+exports.findUserByUserName= async (userName)=>{
+	return await User.findOne({userName})
+}
 exports.findUserBlog = async (userName) => {
 	var query = Blog.find(userName);
 	var res = []
@@ -59,7 +62,25 @@ exports.addUser = async (user) => {
 	user = await user.save()
 	return user
 }
-
+//update无法找到匹配信息（待修复）
+exports.changeHeadImg = async (_id,userName,headImgUrl) => {
+	var changeUserHead=new Promise((reslove,reject)=>{
+		User.update({userName},{$set:{headImgUrl}},(err,data)=>{
+			console.log(`err${err}`)
+			console.log(data)
+			reslove(data)
+		})
+	})
+	var changeBlogHead=new Promise((reslove,reject)=>{
+		Blog.update({userName},{$set:{headImgUrl}},{ multi: true },(err,raw)=>{
+			console.log(`err${err}`)
+			reslove(raw)
+		})
+	})
+	var changedUser=await Promise.all[changeUserHead,changeBlogHead]
+	console.log(`changedUser:${changedUser}`)
+	return changedUser
+}
 /**
  * 删除用户
  * @param  {[type]} options.phoneNumber [description]

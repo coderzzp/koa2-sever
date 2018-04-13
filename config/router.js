@@ -15,9 +15,12 @@ module.exports = function(){
   router.post('/u/signin', App.hasBody, User.signIn)
   router.post('/u/update', App.hasBody, App.hasToken, User.update)
   router.post('/b/publish', App.hasBody,App.hasSession, Blog.publish)
+  router.post('/u/changeheadimg', App.hasBody,App.hasSession, User.changeHeadImg)
   router.get('/b/main', Blog.main)
   router.get('/b/auth', App.hasSession, Blog.auth)
   router.post('/b/delblog',  App.hasBody,App.hasSession,Blog.del)
+  router.get('/b/like/:blogId',  App.hasSession,Blog.like)
+  router.get('/b/dislike/:blogId',  App.hasSession,Blog.disLike)
   router.get('/user/info', App.hasSession, User.info)
   router.get('/test', Blog.test)
 
