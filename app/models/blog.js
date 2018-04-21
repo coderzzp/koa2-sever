@@ -20,6 +20,10 @@ var BlogSchema = new Schema({
   likeUserName:{
     type: Array
   },
+  time:{
+    type: Date,
+    default: Date.now
+  },
   headImgUrl:{ type: String, default: 'https://res.cloudinary.com/coderzzp2/image/upload/v1523454694/head_xep4yp.jpg' },
 })
 var Blog = mongoose.model('Blog', BlogSchema)

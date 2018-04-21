@@ -103,15 +103,27 @@ exports.disLike = async (ctx, next) => {
   }
 }
 exports.main = async (ctx, next) => {
-  var data = await blogHelper.findAllBlogs()
+  const NUM_PAGE=2
+  const page=ctx.params.page
+  const limitNum=NUM_PAGE*page
+  var data = await blogHelper.findAllBlogs(limitNum)
   // var obj = await userHelper.findByPhoneNumber({phoneNumber : '13525584568'})
   // console.log('obj=====================================>'+obj)
-  data.reverse()
-  ctx.body = {
-    success: true,
-    data
+  var NUM_BLOG= await blogHelper.findAllBlogsNum()
+  console.log(`NUM_BLOG${NUM_BLOG}`)
+  //如果已经请求了超过blog总数的
+  if(limitNum>=NUM_BLOG){
+    ctx.body = {
+      success: true,
+      isEnd:true,
+      data
+    }
+  }else{
+    ctx.body = {
+      success: true,
+      data
+    }
   }
-
 	// try {
   //   user = await user.save()
   //   ctx.body = {

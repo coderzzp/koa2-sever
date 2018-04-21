@@ -1,5 +1,3 @@
-import { setTimeout } from 'core-js/library/web/timers';
-
 var mongoose =  require('mongoose')
 var Blog = mongoose.model('Blog')
 
@@ -8,8 +6,8 @@ var Blog = mongoose.model('Blog')
  * @param  {[type]} options.phoneNumber [description]
  * @return {[type]}                     [description]
  */
-exports.findAllBlogs = async () => {
-  var query = Blog.find({})
+exports.findAllBlogs = async (limitNum) => {
+  var query = Blog.find({}).sort({time:-1}).limit(limitNum)
   console.log(query)
 	var res = null
 	await query.exec(function(err, blog) {
@@ -21,6 +19,14 @@ exports.findAllBlogs = async () => {
 	})
 	// console.log('res====>' + res)
 	return res;
+}
+exports.findAllBlogsNum= async ()=>{
+	return await new Promise((reslove,reject)=>{
+		Blog.count({},(err,count)=>{
+			reslove(count)
+		})
+	})
+	
 }
 exports.like= async(userName,blogId) => {
 	var changedBlog=await new Promise((reslove,reject)=>{
