@@ -7,7 +7,7 @@ const articleHeadModel = require('./app/models/articlehead')
 const articleHtmlModel = require('./app/models/articlehtml')
 const SPIDER_PAGE=3
 console.log('spider脚本开启')
-var j = schedule.scheduleJob('40 * * * *', function(){
+var j = schedule.scheduleJob('55 * * * *', function(){
   mongoose.connect('mongodb://127.0.0.1:27017/mydb')
   db=mongoose.connection  
   const clear=async ()=>{
