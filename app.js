@@ -53,7 +53,7 @@ const cors = require('koa2-cors');
 // const bodyParser = require('koa-better-body')
 const bodyParser = require('koa-body')
 const app = new Koa()
-const authPort=process.env.NODE_ENV === "production"?'http://miniweb.coderzzp.com':'http://localhost:3001'
+const authPort=process.env.NODE_ENV === "production"?'http://archshare.club':'http://localhost:3001'
 
 app.keys = ['zhangivon']
 app.use(cors({
